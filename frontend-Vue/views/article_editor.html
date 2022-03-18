@@ -5,13 +5,16 @@
 <script src="https://unpkg.com/vue@3"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <div id="app">
-    <form action="" method="POST">
+    <form>
         {% csrf_token %}
+        <div>
+            <button @click="picUpload">Screen Shoot Recognition Tool</button>
+        </div>
         <table>
             {{ form.as_table }}
             {{ edit_form.as_table }}
         </table>
-        <input type="submit" name="submit" value="Submit">
+        <input type="submit" name="submit" value="Submit" @click="submitEdit">
     </form>
 </div>
 
@@ -37,10 +40,15 @@
             } {% endcomment %}
         },
         methods: {
-            greet: function(name) {
-                axios.post().then();
-            }
         }
     }).mount('#app')
+
+    function submitEdit(event) {
+        axios.post().then();
+    }
+
+    function picUpload(event) {
+        
+    }
 </script>
 {% endblock %}
