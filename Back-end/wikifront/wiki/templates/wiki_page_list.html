@@ -1,0 +1,17 @@
+{% if object_list %}
+
+<h2>Pages</h2>
+
+<ul>
+    {% for Wiki_page in object_list %}
+    <li>
+        <a href="{% url 'wiki_page_detail' 'Wiki_page.slug' %}">{{ Wiki_page.title }}</a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% else %}
+<h2>No articles have been published yet.</h2>
+{% endif %}
+
+<a href="{% url 'wiki_page_add' %}">Create new article</a>
