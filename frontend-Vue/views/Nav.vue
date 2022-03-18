@@ -1,12 +1,16 @@
 <template>
-    <div>Home
+    <div>
     <el-container style = "height: 100%">
         <el-aside width="auto">
             <common-aside></common-aside>
         </el-aside>
         <el-container>
-            <el-header>Banner of the Maid</el-header>
-            <el-main>Main</el-main>
+            <el-header>
+                <common-header></common-header>
+            </el-header>
+            <el-main>
+                <router-view></router-view>
+            </el-main>
         </el-container>
         </el-container>
     </div>
@@ -14,10 +18,12 @@
 
 <script>
     import CommonAside from '../src/components/CommonAside.vue'
+    import CommonHeader from '../src/components/CommonHeader.vue'
     export default{
-        name: 'Home',
+        name: 'Nav',
         components:{
-            CommonAside
+            CommonAside,
+            CommonHeader
         },
         data(){
             return{}
