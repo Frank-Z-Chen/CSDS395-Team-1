@@ -1,0 +1,46 @@
+{% extends "article_form.html" %}
+
+{% block editor %}
+
+<script src="https://unpkg.com/vue@3"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<div id="app">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+            {{ edit_form.as_table }}
+        </table>
+        <input type="submit" name="submit" value="Submit">
+    </form>
+</div>
+
+<script>
+    const axios = require('axios').default {% comment %} May break since not Typescript{% endcomment %}
+    const instance = axios.create({
+        baseURL: 'https://some-domain.com/api/',
+        timeout: 1000,
+        headers: {'X-Custom-Header': 'foobar'}
+    });
+
+    Vue.createApp({
+        delimiters: ['[[', ']]'],
+        el: '#app',
+        data: {
+            {% comment %} message: 'Hello Vue!',
+            people: people, {% endcomment %}
+        },
+        http: {
+            {% comment %} root: '/root',
+            headers: {
+                Authorization: 'Basic YXBpOnBhc3N3b3Jk'
+            } {% endcomment %}
+        },
+        methods: {
+            greet: function(name) {
+                axios.post().then();
+            }
+        }
+    }).mount('#app')
+</script>
+{% endblock %}
