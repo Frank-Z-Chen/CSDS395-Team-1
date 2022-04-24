@@ -37,14 +37,18 @@ for i in ind:
 # df.to_csv(lfile,index=False,sep=',')
 
 # 输出结果     
+
 ind = range(0,max(df['chunk'])+1)
 of = pd.DataFrame(index=ind,columns=["ATT","CON"])
 
 for i in ind:
-    tempatt = df[(df.chunk == i) & (df.as_cat != None)]
-    tempcon = df[(df.chunk == i) & (df.as_cat == None)]
-    
-    if tempatt.iloc[0,11] == True:
+    tempatt = df[df.as_cat.notnull()]
+    tempatt = tempatt[tempatt.chunk == i]
+
+    tempcon = df[df.as_cat.isna()]
+    tempcon = tempcon[tempcon.chunk == i]
+
+    if tempatt.iloc[0,10] == True:
         att = tempatt.iloc[0,8]
         if len(tempcon) > 0:
             con = tempcon.iloc[0,8]

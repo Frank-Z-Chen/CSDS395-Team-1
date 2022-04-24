@@ -3,7 +3,7 @@ from sklearn import svm
 import pandas as pd
 import os
 import sys
-from sklearn.externals import joblib
+import joblib
 import util
 
 
