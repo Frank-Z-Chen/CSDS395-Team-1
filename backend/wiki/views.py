@@ -5,17 +5,16 @@ from django.shortcuts import get_object_or_404, render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from wiki.models import Page,Type
+from wiki.models import Page,Type, Attribute
 from wiki import serializers
 from rest_framework.renderers import JSONRenderer
 from rest_framework.views import APIView
-from rest_framework.exceptions import UnsupportedMediaType
+from rest_framework.exceptions import UnsupportedMediaType, NotAcceptable, APIException
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.conf import settings
 import sp.util
 from . import util
-from PIL import Image
 import json
 import base64
 
@@ -69,18 +68,16 @@ class OCR_data:
 
     def get_raw_data(self, name, type_name):
         #run the getdata.py
-        #os.system("python %s" %('sp/getdata.py' + ' ' +  '{0}.png'.format(name) + ' {0}'.format(type_name)))
+        os.system("python %s" %('sp/getdata.py' + ' ' +  '{0}.png'.format(name) + ' {0}'.format(type_name)))
         csv_path = 'sp/roughdata/' + '{0}_{1}'.format(type_name, name) + '_temp_rough.csv'
         js_path = 'sp/roughdata/' + '{0}_{1}'.format(type_name, name) + '_temp_rough.json'
         util.make_json(csv_path, js_path)
         f = open('sp/roughdata/{0}_{1}_temp_rough.json'.format(type_name, name))
         self.json = json.load(f)
 
-        with open('sp/figure/{0}.png'.format(name), "rb") as image_file:
+        with open('sp/temp/{0}_{1}_temp_mark.png'.format(type_name, name), "rb") as image_file:
             encoded_string = base64.b64encode(image_file.read())
         self.image = encoded_string
-
-        print('holy shit')
 
 
 class OcrView(APIView):
@@ -108,6 +105,71 @@ class OcrView(APIView):
 
         test = {"a":"a"}
         # print(serializer.data)
+        return Response(serializer.data)
+
+
+def generate_ocr_response(type_name, name):
+    #run the getdata_continue.py
+    os.system("python %s" %('sp/getdata_continue.py' + ' ' +  '{0}'.format(name) + ' ' + '{0}'.format(type_name)))
+    #after the process finished, read the opt data and add tuples to database
+    opt_file_path = 'sp/roughdata/{0}_{1}_temp_rough_opt.csv'.format(type_name, name)
+    dict = util.csv_to_dict_opt_only(opt_file_path)
+    
+    #generate tuples in the database
+    for i in range(len(dict['ATT'])):
+        page_object = Page.objects.filter(slug=name).first()
+
+        # det the default for update
+        new_object_name = name
+        new_attribute_name=dict['ATT'][i]
+        new_attribute_value=dict['CON'][i]
+        new_page=page_object
+
+        Attribute.objects.update_or_create(
+            object_name=name,
+            attribute_name=dict['ATT'][i],
+            attribute_value=dict['CON'][i],
+            page=page_object,
+            
+            #for update if match exists
+            defaults={
+                'object_name':new_object_name,
+                'attribute_name':new_attribute_name,
+                'attribute_value':new_attribute_value,
+                'page':new_page
+            }
+        )
+
+        #finish updating the database, return to the page detail!
+
+
+
+
+class OcrResponseView(APIView):
+    def post(self, request, type_name, page_slug):
+        try:
+            json_file = request.body.decode('utf-8') 
+            name = page_slug
+            type_name = type_name
+
+        except Exception:
+            raise APIException('something went wrong')
+
+        #save the json file
+        path_json = 'sp/roughdata/{0}_{1}_temp_rough_response.json'.format(type_name, name)
+        #convert the string to json
+        json_file = json.loads(json_file)
+        with open(path_json, 'w') as f:
+            json.dump(json_file, f)
+
+        #convert it as csv file
+        path_csv = 'sp/data/{0}_{1}_temp_learn.csv'.format(type_name,name)
+        util.make_csv(path_json, path_csv)
+
+        generate_ocr_response(type_name, name)
+
+        page = get_object_or_404(Page, slug = page_slug)
+        serializer = serializers.page_serializer(instance=page)
         return Response(serializer.data)
 
 

@@ -27,7 +27,7 @@ ind = range(1,len(df))
 
 for i in ind:
     if df.iloc[i,11] == m :
-        df.iloc[i,11] = k;
+        df.iloc[i,11] = k
     else:
         k = k + 1
         m = df.iloc[i,11]
@@ -40,6 +40,9 @@ for i in ind:
 
 ind = range(0,max(df['chunk'])+1)
 of = pd.DataFrame(index=ind,columns=["ATT","CON"])
+
+#preprocessing
+df = df.replace('', np.nan)
 
 for i in ind:
     tempatt = df[df.as_cat.notnull()]
@@ -62,9 +65,10 @@ for i in ind:
         con = temp.iloc[0,8]
         for j in range(1,len(temp)):
             con = con + " " + temp.iloc[j,8]  
+    
     of.iloc[i,0] = att
     of.iloc[i,1] = con
-    
+
 of.to_csv(ofile,index=False,sep=',')
 
 # 创建、更新模型

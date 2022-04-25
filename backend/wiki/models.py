@@ -23,7 +23,7 @@ class Page (models.Model):
 class Attribute(models.Model):
     object_name = models.CharField(max_length=255)
     attribute_name = models.CharField(max_length=255)
-    attribute_value = models.DecimalField(max_digits = 14, decimal_places=2)
+    attribute_value = models.TextField()
     page = models.ForeignKey(Page, on_delete=models.CASCADE)
 
     def __str__(self) -> str:

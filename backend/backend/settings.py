@@ -140,10 +140,11 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'sp/figure/')
 
 REST_FRAMEWORK = {
-    'COERCE_DECIMAL_TO_STRING':False
+    'DEFAULT_RENDERER_CLASSES': ['rest_framework.renderers.JSONRenderer','rest_framework.renderers.BrowsableAPIRenderer',],
+    'COERCE_DECIMAL_TO_STRING':False,
 }
 
 AUTH_USER_MODEL = 'users.User'
