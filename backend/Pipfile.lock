@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "5eb0e53ccdf79d8a18a75629e5ad0c6e26bed071f8df65f46e09cacbc0a03654"
+            "sha256": "670c58a394ad7a23207bbfcf52e33f5b21c46dbd68c9fcee1a73b1936ccbf47d"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -18,11 +18,11 @@
     "default": {
         "asgiref": {
             "hashes": [
-                "sha256:2f8abc20f7248433085eda803936d98992f1343ddb022065779f37c5da0181d0",
-                "sha256:88d59c13d634dcffe0510be048210188edd79aeccb6a6c9028cdad6f31d730a9"
+                "sha256:45a429524fba18aba9d512498b19d220c4d628e75b40cf5c627524dbaebc5cc1",
+                "sha256:fddeea3c53fa99d0cdb613c3941cc6e52d822491fc2753fba25768fb5bf4e865"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==3.5.0"
+            "version": "==3.5.1"
         },
         "bleach": {
             "hashes": [
@@ -95,11 +95,11 @@
         },
         "imageio": {
             "hashes": [
-                "sha256:6b81600e20d90dcfba752c341f86188d09db75b7945ad15dec11ba1af0d40c26",
-                "sha256:b21f009e52eb22b02b839f3bf2ae5374aaf0886317313c1358c6014e5383b539"
+                "sha256:7e803cd50a6b271e96e18f14767f8c2e01f27b84f93768cf9f08ad5277e9d030",
+                "sha256:cd8c946ecdf71f2fc74419b2e3c97a46104e91c2d2c4288d3217eae366778638"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==2.17.0"
+            "version": "==2.19.0"
         },
         "joblib": {
             "hashes": [
@@ -151,7 +151,7 @@
                 "sha256:fade0d4f4d292b6f39951b6836d7a3c7ef5b2347f3c420cd9820a1d90d794802",
                 "sha256:fdf3c08bce27132395d3c3ba1503cac12e17282358cb4bddc25cc46b0aca07aa"
             ],
-            "markers": "python_version >= '3.8'",
+            "markers": "python_version >= '3.7'",
             "version": "==1.22.3"
         },
         "opencv-python": {
@@ -289,6 +289,14 @@
             ],
             "index": "pypi",
             "version": "==1.7.1"
+        },
+        "pymysql": {
+            "hashes": [
+                "sha256:41fc3a0c5013d5f039639442321185532e3e2c8924687abe6537de157d403641",
+                "sha256:816927a350f38d56072aeca5dfb10221fe1dc653745853d30a216637f5d7ad36"
+            ],
+            "index": "pypi",
+            "version": "==1.0.2"
         },
         "pyparsing": {
             "hashes": [
@@ -535,11 +543,11 @@
         },
         "tifffile": {
             "hashes": [
-                "sha256:2a18ba74173074121e118ad9cd06fb030ac8354abd1d94adddf0b3ce614b0438",
-                "sha256:2b8003c834883103131bd3e97388091b59a3a2344e9d8e1ed48aebeb64f86763"
+                "sha256:52b4c02040d00c1811e26c0f6abd41e77e2d57559b3657ff3e873955f74f5c57",
+                "sha256:b03147a15862b7c1d90d47435197f149bef7a52c25ad67cf1f9b465faa71b8d2"
             ],
             "markers": "python_version >= '3.8'",
-            "version": "==2022.4.22"
+            "version": "==2022.5.4"
         },
         "torch": {
             "hashes": [
