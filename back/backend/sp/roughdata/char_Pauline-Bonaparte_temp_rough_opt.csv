@@ -1,0 +1,16 @@
+ATT,CON
+name,Pauline Bonaparte
+Description,A strikingyoung female officer who has the power to make others courageous.
+HP,20/20
+MRL,8/100
+Class,Fusilier
+MOV,4
+ATK,13
+LEAD,8
+DEF,5
+AMR,3
+SPD,4
+SCO,5
+HIT,96
+DDG,20
+MRI,17
